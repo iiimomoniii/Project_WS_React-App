@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default class Notelist extends React.Component {
   renderNotes() {
     //รับค่า notes โดย props จาก index.js
@@ -7,8 +7,8 @@ export default class Notelist extends React.Component {
 
     return notes.map((n) => (
       <div>
-          {/* get title จาก notes*/}
-        <h2>{n.title}</h2>
+          {/*ทำ Link ไปยังหน้า show.js*/}
+        <h2><Link to={`/notes/${n._id}`}>{n.title}</Link></h2>
       </div>
     ));
   }
