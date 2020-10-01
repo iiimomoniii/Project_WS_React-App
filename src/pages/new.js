@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './form.css';
 export default class NewPage extends React.Component {
     //สร้าง state เพื่อจัดการกับข้อมูล
     state = {
@@ -19,9 +20,9 @@ export default class NewPage extends React.Component {
         });
     }
 
-    handleSave = (e) => {
+    handleSave = async (e) => {
         e.preventDefault();
-        const id = this.props.onSave(this.state.note);
+        const id = await this.props.onSave(this.state.note);
         this.props.history.replace(`/notes/${ id }`);
     }
 
@@ -30,10 +31,10 @@ export default class NewPage extends React.Component {
         return (
             <div className="note-form">
                <h1>New Note</h1>
-               <form onSubmit={this.hadleSave}>
+               <form onSubmit={this.handleSave}>
                   <div className="note-form-field">
                     <label>Title</label>
-                    <input type="text" name="title" value={note.title} onChange={this.updateValue}></input>
+                    <input type="text" name="title" value={note.title} onChange={this.updateValue}/>
                   </div>
                   <div className="note-form-field note-form-field-text">
                       <textarea name="body" value={note.body} onChange={this.updateValue}/>
