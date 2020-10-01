@@ -12,30 +12,25 @@ import NavBar from './components/navbar';
 //จะใช้ NewPage สร้าง note ใหม่ว
 import NewPage from './pages/new';
 
+import DB from './db';
+
 class App extends Component {
   //state นั้นเสมือนเป็น data ที่มีการใช้แค่ภายใน Component นั้นๆ
   state = {
-    notes: {
-      1: {
-        _id: 1,
-        title: "Hello World",
-        body: "This is the body of my note",
-        updatedAt: new Date(),
-      },
-      2: {
-        _id: 2,
-        title: "Hello World Again",
-        body: "This is the body of my second note",
-        updatedAt: new Date(),
-      },
-    },
+    db : new DB(),
+    notes : {},
   };
 
-  handleSave = (note) => {
-    const ids = Object.keys(this.state.notes);
-    const id = Math.max(...ids)+1;
+  async componentDidMount() {
+    const notes = await this.state.db.getAllNotes();
 
-    note['_id'] = id;
+    this.setState({
+        notes
+      });
+  }
+
+  handleSave = async (note) => {
+    let { id } = await this.state.db.createNote(note);
     const { notes } = this.state;
 
     this.setState({
