@@ -19,13 +19,15 @@ class App extends Component {
   state = {
     db : new DB(),
     notes : {},
+    loading : true
   };
 
   async componentDidMount() {
     const notes = await this.state.db.getAllNotes();
 
     this.setState({
-        notes
+        notes,
+        loading : false
       });
   }
 
@@ -42,16 +44,27 @@ class App extends Component {
     return id;
   }
 
+  renderContent(){
+    if (this.state.loading) {
+      return <h2>Loading...</h2>
+    }
+    return (
+      <div className="app-content">
+       {/* การ pass ข้อมูล โดยใช้ props ซึ่ง ข้อมูลจะถูกห่อไว้ใน state  */}
+       <Route exact path="/" component={(props) => (<IndexPage {...props} notes={this.state.notes} />)}></Route>
+       {/* click เลือก title เพื่อจะ show รายระเอียด โดยใช้ id  */}
+       <Route exact path="/notes/:id" component={(props) => (<ShowPage {...props } notes={this.state.notes[props.match.params.id]} />)}></Route>
+       <Route exact path="/new" component={(props) => <NewPage { ...props} onSave={this.handleSave}/>} ></Route>        
+      </div>
+    )
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
           <NavBar />
-          {/* การ pass ข้อมูล โดยใช้ props ซึ่ง ข้อมูลจะถูกห่อไว้ใน state  */}
-          <Route exact path="/" component={(props) => (<IndexPage {...props} notes={this.state.notes} />)}></Route>
-          {/* click เลือก title เพื่อจะ show รายระเอียด โดยใช้ id  */}
-          <Route exact path="/notes/:id" component={(props) => (<ShowPage {...props } notes={this.state.notes[props.match.params.id]} />)}></Route>
-          <Route exact path="/new" component={(props) => <NewPage { ...props} onSave={this.handleSave}/>} ></Route>        
+          {this.renderContent()}
         </div>
       </BrowserRouter>
     );

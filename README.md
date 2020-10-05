@@ -67,3 +67,14 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 # React_App
+
+# PWA 
+### React
+npm run build && npm run start-sw
+
+npm i serve -g
+
+serve -s build
+
+### CouchDB
+http://localhost:5984/_utils/#database/react-notes/

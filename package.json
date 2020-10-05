@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "Couchbase-sync-gateway-REST": "^0.1.8-2",
     "moment": "^2.29.0",
     "pouchdb": "^7.2.2",
     "react": "^16.13.1",
@@ -33,5 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }
